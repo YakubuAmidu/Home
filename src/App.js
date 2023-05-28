@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import Joke from './Joke';
 import Stories from './Stories';
+import Tasks from './Tasks';
 
 function App() {
   const [userQuery, setUserQuery] = useState('');
@@ -17,9 +18,9 @@ function App() {
   }
 
   const updateUserQuery = event => {
-    console.log('userQuery', userQuery);
-
     setUserQuery(event.target.value);
+
+    console.log('userQuery', userQuery);
   }
 
   return (
@@ -35,6 +36,8 @@ function App() {
       </div>
       <hr />
       <Joke />
+      <hr />
+      <Tasks />
       <hr />
       <Stories />
     </div>
