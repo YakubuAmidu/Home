@@ -89,6 +89,7 @@ import matrix87 from '../assets/matrix/87.png';
 import matrix88 from '../assets/matrix/88.png';
 import matrix89 from '../assets/matrix/89.png';
 
+// eslint-disable-next-line 
 export default [
   matrix0,
   matrix1,
