@@ -6,13 +6,28 @@ const initialTaskState = {
     completedTasks: []
 };
 
+const TYPES = {
+    ADD_TASK: 'ADD_TASK',
+    COMPLETE_TASK: 'COMPLETE_TASK',
+    DELETE_TASK: 'DELETE_TASK'
+}
+
 const tasksReducer = (state, action) => {
     console.log('state', state, 'action', action);
 
-    return {
-        ...state,
-        tasks: [...state.tasks, action.task]
-    };
+    switch(action.type){
+       case TYPES.ADD_TASK:
+         return {
+            ...state,
+            tasks: [...state.tasks, action.task]
+         }
+       case TYPES.COMPLETE_TASK:
+         return {
+            ...state
+         }
+       default: 
+          return state
+    }
 }
 
 const TASK_STORAGE_KEY = 'TASK_STORAGE_KEY';
@@ -48,11 +63,14 @@ function Tasks(){
     };
 
     const addTask = () => {
-        dispatch({ task: { taskText, id: uuid() }});
+        dispatch({ type: TYPES.ADD_TASK, task: { taskText, id: uuid() }});
+
         setTasks([...tasks, {taskText, id: uuid()}]);
     };
 
     const completeTask = completedTask => () => {
+        dispatch({ type: TYPES.COMPLETE_TASK, completedTask });
+
         setCompletedTasks([...completedTasks, completedTask]);
         setTasks(tasks.filter(task => task.id !== completedTask.id));
     };
