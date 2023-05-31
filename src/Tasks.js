@@ -7,9 +7,12 @@ const initialTaskState = {
 };
 
 const tasksReducer = (state, action) => {
-    console.log('Hit tasksReducer');
+    console.log('state', state, 'action', action);
 
-    return initialTaskState;
+    return {
+        ...state,
+        tasks: [...state.tasks, action.task]
+    };
 }
 
 const TASK_STORAGE_KEY = 'TASK_STORAGE_KEY';
@@ -35,8 +38,6 @@ function Tasks(){
 
     const [state, dispatch] = useReducer(tasksReducer, initialTaskState);
 
-    console.log('state', state);
-
     useEffect(() => {
         storeTasks({ tasks, completedTasks });
     })
@@ -47,7 +48,7 @@ function Tasks(){
     };
 
     const addTask = () => {
-        dispatch({});
+        dispatch({ task: { taskText, id: uuid() }});
         setTasks([...tasks, {taskText, id: uuid()}]);
     };
 
