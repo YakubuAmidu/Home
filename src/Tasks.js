@@ -1,5 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import uuid from 'uuid/v4';
+
+const initialTaskState = {
+    tasks: [],
+    completedTasks: []
+};
+
+const tasksReducer = (state, action) => {
+    console.log('Hit tasksReducer');
+
+    return initialTaskState;
+}
 
 const TASK_STORAGE_KEY = 'TASK_STORAGE_KEY';
 
@@ -22,6 +33,10 @@ function Tasks(){
     const [tasks, setTasks] = useState(storedTasks.tasks);
     const [completedTasks, setCompletedTasks] = useState(storedTasks.completedTasks);
 
+    const [state, dispatch] = useReducer(tasksReducer, initialTaskState);
+
+    console.log('state', state);
+
     useEffect(() => {
         storeTasks({ tasks, completedTasks });
     })
@@ -32,6 +47,7 @@ function Tasks(){
     };
 
     const addTask = () => {
+        dispatch({});
         setTasks([...tasks, {taskText, id: uuid()}]);
     };
 
